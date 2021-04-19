@@ -1,3 +1,7 @@
+r'''
+    calculations: This file contains all the methods to calculate the formulas on the plasma formulary.
+'''
+
 from application import app
 from flask import Flask, render_template, request
 import plasmapy
@@ -5,24 +9,40 @@ import astropy
 import astropy.units as u
 import plasmapy.formulary.parameters as pfp
 
-# Thermal Pressure
-
 
 def calculate_thermal_pressure(form):
-    num1 = form['temp']
-    num2 = form['density']
+    r''' Returns 
+        --------
+        Quantity 
+            Thermal pressure in Pascal (Pa) 
 
+        Parameters
+        ---------- 
+        `form`: The calculator form from the HTML page where the user enters data for calculation.
+    '''
+    num1 = form['temp']     # Get temperature
+    num2 = form['density']  # Get density
+
+    # Convert units of temperature and density into Unit objects, and use them to make Quantity objects
     unit1 = u.Unit(form['unitsT'])
     q1 = u.Quantity(num1, unit1)
     unit2 = u.Unit(form['unitsN'])
     q2 = u.Quantity(num2, unit2)
+
     sum = pfp.thermal_pressure(q1, q2)
     return sum
 
-# Debye length
-
 
 def calculate_debye_length(form):
+    r''' Returns 
+        --------
+        Quantity 
+            Debye length in meters (m)
+
+        Parameters
+        ---------- 
+        `form`: The calculator form from the HTML page where the user enters data for calculation.
+    '''
     num1 = form['temp']
     num2 = form['density']
 
@@ -33,17 +53,26 @@ def calculate_debye_length(form):
     sum = pfp.Debye_length(q1, q2)
     return sum
 
-# Gyrofrequency
-
 
 def calculate_gyrofrequency(form):
-    mag_fld = form['mf_mag']
-    mag_unit = form['unitsB']
+    r''' Returns 
+        --------
+        Quantity 
+            Gyrofrequency in units of radians per second
+
+        Parameters
+        ---------- 
+        `form`: The calculator form from the HTML page where the user enters data for calculation.
+    '''
+    mag_fld = form['mf_mag']    # Magnetic field magnitude
+    mag_unit = form['unitsB']   # Unit of magnetic field
     particle = form['particle']
-    z = form['z']
+    z = form['z']               # Average ionization
     signed = form['signed']
+    # Boolean to convert output from angular frequency to Hz
     to_hz = form['to_hz']
 
+    # Prompt user for required inputs
     if mag_fld == None or mag_unit == 'select':
         return render_template('gyrofrequency.html', sum="Enter all required fields")
 
@@ -60,12 +89,18 @@ def calculate_gyrofrequency(form):
     return sum
 
 
-# Inertial length
-
-
 def calculate_inertial_length(form):
-    n = form['n']
-    p = form['particle']
+    r''' Returns 
+        --------
+        Quantity 
+            Inertial length in meters (m)
+
+        Parameters
+        ---------- 
+        `form`: The calculator form from the HTML page where the user enters data for calculation.
+    '''
+    n = form['n']           # Particle number density
+    p = form['particle']    # Particle
 
     n_quantity = u.Quantity(n, u.Unit(form['unitsN']))
     sum = pfp.inertial_length(n_quantity, p)
