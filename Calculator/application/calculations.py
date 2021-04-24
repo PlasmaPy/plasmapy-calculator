@@ -64,28 +64,65 @@ def calculate_gyrofrequency(form):
         ---------- 
         `form`: The calculator form from the HTML page where the user enters data for calculation.
     '''
-    mag_fld = form['mf_mag']    # Magnetic field magnitude
-    mag_unit = form['unitsB']   # Unit of magnetic field
+    mag_fld = form['mf_mag']        # Magnetic field magnitude
+    mag_unit = form['unitsB']       # Unit of magnetic field
     particle = form['particle']
-    z = form['z']               # Average ionization
+
+    # Use MultiDict.get() to get Z as an int or None
+    z = form.get('z', type=int)     # Average ionization
     signed = form['signed']
+
     # Boolean to convert output from angular frequency to Hz
     to_hz = form['to_hz']
 
     # Prompt user for required inputs
-    if mag_fld == None or mag_unit == 'select':
-        return render_template('gyrofrequency.html', sum="Enter all required fields")
+    if mag_fld == "" or mag_unit == 'select':
+        return -1
 
-    # Gyrofrequency with only Magnetic Field and Particle
     b = u.Quantity(mag_fld, u.Unit(mag_unit))
     p = plasmapy.particles.Particle(particle)
-    sum = pfp.gyrofrequency(b, p)
+
+    # Form returns 'True' and 'False' as strings and not booleans
+
+    # Gyrofrequency with only Magnetic Field and Particle
+    if signed == 'False' and z == None and to_hz == 'False':
+        sum = pfp.gyrofrequency(b, p)
+        return sum
 
     # Gyrofrequency with B, particle, z
+    elif signed == 'False' and z != None and to_hz == 'False':
+        sum = pfp.gyrofrequency(b, p, signed=False, Z=z, to_hz=False)
+        return sum
+
+    # Output if to_hz is true, signed is false and Z is given
+    elif signed == 'False' and z != None and to_hz == 'True':
+        sum = pfp.gyrofrequency(b, p, signed=False, Z=z, to_hz=True)
+        return sum
+
+    # Output if to_hz is true, signed is false and Z is not given
+    elif signed == 'False' and z == None and to_hz == 'True':
+        sum = pfp.gyrofrequency(b, p, signed=False, Z=None, to_hz=True)
+        return sum
+
+    # Gyrofrequency with B, particle, signed
+    elif signed == 'True' and z == None and to_hz == 'False':
+        sum = pfp.gyrofrequency(b, p, signed=True, Z=None, to_hz=False)
+        return sum
+
+    # Output if to_hz is true, signed is true and Z is not given
+    elif signed == 'True' and z == None and to_hz == 'True':
+        sum = pfp.gyrofrequency(b, p, signed=True, Z=None, to_hz=True)
+        return sum
 
     # Gyrofrequency with B, particle, z, signed
+    elif signed == 'True' and z != None and to_hz == 'False':
+        sum = pfp.gyrofrequency(b, p, signed=True, Z=z, to_hz=False)
+        return sum
 
-    # Output if to_hz is true
+    # Output if to_hz is true, signed is true and Z is given
+    elif signed == 'True' and z != None and to_hz == 'True':
+        sum = pfp.gyrofrequency(b, p, signed=True, Z=z, to_hz=True)
+        return sum
     return sum
 
 
