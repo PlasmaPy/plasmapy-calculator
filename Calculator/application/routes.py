@@ -44,6 +44,8 @@ def thermal_pressure(sum=sum):
         Calculates the Thermal Pressure and displays the answer on the same HTML page. 
     '''
     sum = cal.calculate_thermal_pressure(request.form)
+    if(sum == -1):
+        return render_template('thermal_pressure.html', sum="Please enter all required fields")
     return render_template('thermal_pressure.html', sum=sum)
 
 
@@ -53,6 +55,8 @@ def debye_length(sum=sum):
         Calculates the Debye Length and displays the answer on the same HTML page. 
     '''
     sum = cal.calculate_debye_length(request.form)
+    if(sum == -1):
+        return render_template('debye_length.html', sum="Please enter all required fields")
     return render_template('debye_length.html', sum=sum)
 
 
@@ -61,7 +65,10 @@ def gyrofrequency(sum=sum):
     r''' 
         Calculates the Gyrofrequency and displays the answer on the same HTML page. 
     '''
+
     sum = cal.calculate_gyrofrequency(request.form)
+    if sum == -1:
+        return render_template('gyrofrequency.html', sum="Please enter all required fields")
     return render_template('gyrofrequency.html', sum=sum)
 
 
@@ -71,4 +78,6 @@ def inertial_length(sum=sum):
         Calculates the Inertial Length and displays the answer on the same HTML page. 
     '''
     sum = cal.calculate_inertial_length(request.form)
+    if(sum == -1):
+        return render_template('inertial_length.html', sum="Please enter all required fields")
     return render_template('inertial_length.html', sum=sum)

@@ -8,6 +8,7 @@ import plasmapy
 import astropy
 import astropy.units as u
 import plasmapy.formulary.parameters as pfp
+from ast import dump
 
 
 def calculate_thermal_pressure(form):
@@ -22,11 +23,16 @@ def calculate_thermal_pressure(form):
     '''
     num1 = form['temp']     # Get temperature
     num2 = form['density']  # Get density
+    u1 = form['unitsT']
+    u2 = form['unitsN']
+
+    if num1 == "" or num2 == "" or u1 == 'select' or u2 == 'select':
+        return -1
 
     # Convert units of temperature and density into Unit objects, and use them to make Quantity objects
-    unit1 = u.Unit(form['unitsT'])
+    unit1 = u.Unit(u1)
     q1 = u.Quantity(num1, unit1)
-    unit2 = u.Unit(form['unitsN'])
+    unit2 = u.Unit(u2)
     q2 = u.Quantity(num2, unit2)
 
     sum = pfp.thermal_pressure(q1, q2)
@@ -45,10 +51,15 @@ def calculate_debye_length(form):
     '''
     num1 = form['temp']
     num2 = form['density']
+    u1 = form['unitsT']
+    u2 = form['unitsN']
 
-    unit1 = u.Unit(form['unitsT'])
+    if num1 == "" or num2 == "" or u1 == 'select' or u2 == 'select':
+        return -1
+
+    unit1 = u.Unit(u1)
     q1 = u.Quantity(num1, unit1)
-    unit2 = u.Unit(form['unitsN'])
+    unit2 = u.Unit(u2)
     q2 = u.Quantity(num2, unit2)
     sum = pfp.Debye_length(q1, q2)
     return sum
@@ -138,7 +149,11 @@ def calculate_inertial_length(form):
     '''
     n = form['n']           # Particle number density
     p = form['particle']    # Particle
+    u1 = form['unitsN']
 
-    n_quantity = u.Quantity(n, u.Unit(form['unitsN']))
+    if n == "" or u1 == 'select':
+        return -1
+
+    n_quantity = u.Quantity(n, u.Unit(u1))
     sum = pfp.inertial_length(n_quantity, p)
     return sum
