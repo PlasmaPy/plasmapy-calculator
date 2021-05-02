@@ -34,6 +34,8 @@ def go_to_calc():
             return render_template('inertial_length.html')
         elif page == 'thermal_pressure':
             return render_template('thermal_pressure.html')
+        elif page == 'lengths':
+            return render_template('lengths.html')
         else:
             return render_template('index.html')
 
@@ -81,3 +83,25 @@ def inertial_length(sum=sum):
     if(sum == -1):
         return render_template('inertial_length.html', sum="Please enter all required fields")
     return render_template('inertial_length.html', sum=sum)
+
+
+@app.route('/lengths_debye', methods=["POST"])
+def lengths_debye(sum_debye=sum):
+    r''' 
+        Calculates the Debye Length and displays the answer on the 'lengths' HTML page.
+    '''
+    sum = cal.calculate_debye_length(request.form)
+    if(sum == -1):
+        return render_template('lengths.html', sum_debye="Please enter all required fields")
+    return render_template('lengths.html', sum_debye=sum)
+
+
+@app.route('/lengths_inertial', methods=["POST"])
+def lengths_inertial(sum_inertial=sum):
+    r''' 
+        Calculates the Inertial Length and displays the answer on the 'lengths' HTML page.
+    '''
+    sum = cal.calculate_inertial_length(request.form)
+    if(sum == -1):
+        return render_template('lengths.html', sum_inertial="Please enter all required fields")
+    return render_template('lengths.html', sum_inertial=sum)

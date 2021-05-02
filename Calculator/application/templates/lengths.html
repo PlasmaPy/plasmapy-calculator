@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% include "includes/nav.html" %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="container mx-auto my-4">
+                <div class="text-center">
+                    <h4 class="calculate-head">Debye Length</h4>
+                </div>
+            </div>
+            <div class="container">
+                <div class="usage-text">
+                    <p class="lead">Usage:</p>
+                    <hr>
+                    <p> <span class="signature">debye_length(T_e, n_e)</span>, where <br>
+                        <span class="req-param">T_e</span> - Electron temperature <br>
+                        <span class="req-param">n_e</span> - Electron number density <br>
+                        <br>
+                        returns <span class="req-param">lambda_D</span> – The Debye length in meters
+                    </p>
+                </div>
+            </div>
+            <div class="py-5 container mx-auto text-center">
+                <form id="calc-form1" class="align-items-center" action="/lengths_debye" method="POST">
+                    <div class="p-1 form-group row">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col">
+                                    <label class="labels" for="temp">Temperature:</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" placeholder="Kelvin" class="form-control" name="temp" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <select class="form-control" name="unitsT">
+                                <option value="select">Unit (T)</option>
+                                <option value="K">K</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="p-1 form-group row">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col">
+                                    <label class="labels" for="density">Density:</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" placeholder="1/m^3" class="form-control" name="density" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <select class="form-control" name="unitsN">
+                                <option value="select">Unit (n)</option>
+                                <option value="m ** -3">1 / m^3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="py-2">
+                        <input name="calculate_debye" type="submit" value="Calculate" id="calc_btn"
+                            class="btn btn-success" />
+                        <input type="reset" value="Reset" id="reset_btn" class="btn btn-secondary" />
+                        <br />
+                        <div class="alert">
+                            {{ sum_debye }}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+        <div class="col">
+            <div class="container mx-auto my-4">
+                <div class="text-center">
+                    <h4 class="calculate-head">Inertial Length</h4>
+                </div>
+            </div>
+            <div class="container">
+                <div class="usage-text">
+                    <p class="lead">Usage:</p>
+                    <hr>
+                    <p><span class="signature">inertial_length(n, particle)</span>, where <br>
+                        <span class="req-param">n</span> - Particle number density in units convertible to m^(-3) <br>
+                        <span class="req-param">particle</span> - Representation of the particle species <br>
+                        <br>
+                        returns <span class="signature">d</span> – The particle’s inertial length in meters.
+                    </p>
+
+                </div>
+            </div>
+            <div class="py-5 container mx-auto text-center">
+                <form id="calc-form2" class="align-items-center" action="/lengths_inertial" method="POST">
+                    <div class="p-1 form-group row">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col">
+                                    <label class="labels" for="n">n:</label>
+                                </div>
+                                <div class="col">
+                                    <input type="text" placeholder="1/m^3" class="form-control" name="n" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <select class="form-control" name="unitsN">
+                                <option value="select">Unit: </option>
+                                <option value="m ** -3">1/m^3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="p-1 form-group row">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col">
+                                    <label class="labels" for="particle">Particle:</label>
+                                </div>
+                                <div class="ml-1 col">
+                                    <select class="form-control" name="particle">
+                                        <option value="p+">proton (p+)</option>
+                                        <option value="e-">electron (e-)</option>
+                                        <option value="neutron">neutron</option>
+                                        <option value="D">deutron (D)</option>
+                                        <option value="T+">triton (T+)</option>
+                                        <option value="positron">positron</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+                    <div class="py-2">
+                        <input name="calculate_inertial" type="submit" value="Calculate" id="calc_btn"
+                            class="btn btn-success" />
+                        <input type="reset" value="Reset" id="reset_btn" class="btn btn-secondary" />
+                        <br>
+                        <div class="alert">
+                            {{ sum_inertial }}
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
