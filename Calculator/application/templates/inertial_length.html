@@ -1,3 +1,5 @@
+{% from 'usage_texts_macros.html' import inertialLength_usage %}
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -11,17 +13,7 @@
     </div>
 </div>
 <div class="container">
-    <div class="usage-text">
-        <p class="lead">Usage:</p>
-        <hr>
-        <p><span class="signature">inertial_length(n, particle)</span>, where <br>
-            <span class="req-param">n</span> - Particle number density in units convertible to m^(-3) <br>
-            <span class="req-param">particle</span> - Representation of the particle species <br>
-            <br>
-            returns <span class="signature">d</span> – The particle’s inertial length in meters.
-        </p>
-
-    </div>
+    {{ inertialLength_usage() }}
 </div>
 <div class="py-5 container mx-auto text-center">
     <form id="calc-form" class="align-items-center" action="/inertial_length" method="POST">

@@ -1,3 +1,5 @@
+{% from 'usage_texts_macros.html' import gyrofrequency_usage %}
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -11,25 +13,7 @@
     </div>
 </div>
 <div class="container">
-    <div class="usage-text">
-        <p class="lead">Usage:</p>
-        <hr>
-        <p><span class="signature"> gyrofrequency(B, particle[, signed, Z, to_hz])</span>, where <br>
-            <span class="req-param">B</span>: The magnetic field magnitude in units convertible to tesla <br>
-            <span class="req-param">particle</span>: ‘p’ for protons, ‘D+’ for deuterium, or ‘He-4 +1’ for singly
-            ionized helium-4, etc. <br>
-            <span class="opt-param">signed</span>: optional, negative for electron, positive for ion. Unsigned(false)
-            means positive<br>
-            <span class="opt-param">Z</span>: optional, The average ionization (arithmetic mean) for a plasma where the
-            a macroscopic description is
-            valid<br>
-            <span class="opt-param">to_hz</span>: Set True to to convert function output from angular frequency to
-            Hz<br>
-            <br>
-            returns <span class="signature">omega_c</span> – The particle gyrofrequency in units of radians per second
-        </p>
-
-    </div>
+    {{ gyrofrequency_usage() }}
 </div>
 <div class="py-5 container mx-auto text-center">
     <form id="calc-form" class="align-items-center" action="/gyrofrequency" method="POST">

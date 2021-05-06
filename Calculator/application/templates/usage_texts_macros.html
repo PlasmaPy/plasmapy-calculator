@@ -1,0 +1,62 @@
+{% macro debyeLength_usage() %}
+<div class="usage-text">
+    <p class="lead">Usage:</p>
+    <hr>
+    <p> <span class="signature">debye_length(T_e, n_e)</span>, where <br>
+        <span class="req-param">T_e</span> - Electron temperature <br>
+        <span class="req-param">n_e</span> - Electron number density <br>
+        <br>
+        returns <span class="req-param">lambda_D</span> – The Debye length in meters
+    </p>
+</div>
+{% endmacro %}
+
+
+{% macro gyrofrequency_usage() %}
+<div class="usage-text">
+    <p class="lead">Usage:</p>
+    <hr>
+    <p><span class="signature"> gyrofrequency(B, particle[, signed, Z, to_hz])</span>, where <br>
+        <span class="req-param">B</span>: The magnetic field magnitude in units convertible to tesla <br>
+        <span class="req-param">particle</span>: ‘p’ for protons, ‘D+’ for deuterium, or ‘He-4 +1’ for singly
+        ionized helium-4, etc. <br>
+        <span class="opt-param">signed</span>: optional, negative for electron, positive for ion. Unsigned(false)
+        means positive<br>
+        <span class="opt-param">Z</span>: optional, The average ionization (arithmetic mean) for a plasma where the
+        a macroscopic description is
+        valid<br>
+        <span class="opt-param">to_hz</span>: Set True to to convert function output from angular frequency to
+        Hz<br>
+        <br>
+        returns <span class="signature">omega_c</span> – The particle gyrofrequency in units of radians per second
+    </p>
+</div>
+{% endmacro %}
+
+
+{% macro inertialLength_usage() %}
+<div class="usage-text">
+    <p class="lead">Usage:</p>
+    <hr>
+    <p><span class="signature">inertial_length(n, particle)</span>, where <br>
+        <span class="req-param">n</span> - Particle number density in units convertible to m^(-3) <br>
+        <span class="req-param">particle</span> - Representation of the particle species <br>
+        <br>
+        returns <span class="signature">d</span> – The particle’s inertial length in meters.
+    </p>
+</div>
+{% endmacro %}
+
+
+{% macro thermalPressure_usage() %}
+<div class="usage-text">
+    <p class="lead">Usage:</p>
+    <hr>
+    <p><span class="signature">thermal_pressure(T, n)</span>, where <br>
+        <span class="req-param">T</span> - The particle temperature in either kelvin or energy per particle <br>
+        <span class="req-param">particle</span> - Particle number density in units convertible to m^(-3) <br>
+        <br>
+        returns <span class="signature">p_th</span> – The thermal pressure for a Maxwellian distribution
+    </p>
+</div>
+{% endmacro %}

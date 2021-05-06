@@ -1,3 +1,5 @@
+{% from 'usage_texts_macros.html' import thermalPressure_usage %}
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -10,17 +12,7 @@
     </div>
 </div>
 <div class="container">
-    <div class="usage-text">
-        <p class="lead">Usage:</p>
-        <hr>
-        <p><span class="signature">thermal_pressure(T, n)</span>, where <br>
-            <span class="req-param">T</span> - The particle temperature in either kelvin or energy per particle <br>
-            <span class="req-param">particle</span> - Particle number density in units convertible to m^(-3) <br>
-            <br>
-            returns <span class="signature">p_th</span> – The thermal pressure for a Maxwellian distribution
-        </p>
-
-    </div>
+    {{ thermalPressure_usage() }}
 </div>
 <div class="py-5 container mx-auto text-center">
     <form id="calc-form" class="align-items-center" action="/thermal_pressure" method="POST">

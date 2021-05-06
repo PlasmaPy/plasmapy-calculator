@@ -1,3 +1,5 @@
+{% from 'usage_texts_macros.html' import debyeLength_usage %}
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -11,17 +13,9 @@
     </div>
 </div>
 <div class="container">
-    <div class="usage-text">
-        <p class="lead">Usage:</p>
-        <hr>
-        <p> <span class="signature">debye_length(T_e, n_e)</span>, where <br>
-            <span class="req-param">T_e</span> - Electron temperature <br>
-            <span class="req-param">n_e</span> - Electron number density <br>
-            <br>
-            returns <span class="req-param">lambda_D</span> – The Debye length in meters
-        </p>
 
-    </div>
+    {{ debyeLength_usage() }}
+
 </div>
 <div class="py-5 container mx-auto text-center">
     <form id="calc-form" class="align-items-center" action="/debye_length" method="POST">
