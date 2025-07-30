@@ -13,22 +13,21 @@ authors = [
   { name = "Erik Everson" },
   { name = "Nick Murphy", email = "namurphy@cfa.harvard.edu" },
 ]
-requires-python = ">=3.11.11,<3.12"
+requires-python = ">=3.10.14,<3.11"
 classifiers = [
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.10",
 ]
 dependencies = [
-  "ipykernel",
-  "ipywidgets",
-  "plasmapy",
-  "voila",
+  "ipykernel==6.6.0",
+  "ipywidgets==7.6.5",
+  "plasmapy==0.7.0",
+  "voila==0.3.0",
 ]
 
 scripts.plasmapy-calculator = "plasmapy_calculator:main"
 
 [dependency-groups]
 dev = [
-  "nox>=2025.5.1",
-  "uv>=0.8.4",
+  "nox",
 ]
