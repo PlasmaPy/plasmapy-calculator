@@ -11,7 +11,7 @@ from pathlib import Path
 import astropy.units as u
 from ipywidgets import widgets
 
-from plasmapy.utils.calculator.widget_helpers import (
+from plasmapy_calculator.widget_helpers import (
     _calculate_button,
     _CheckBox,
     _clear_button,
