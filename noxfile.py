@@ -1,6 +1,7 @@
 """Nox configuration file"""
 
 import nox
+import os
 
 running_on_ci = os.getenv("CI")
 
