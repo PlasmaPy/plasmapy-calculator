@@ -1,24 +1,25 @@
+[build-system]
+build-backend = "uv_build"
+
+requires = [ "uv-build>=0.8.3,<0.9" ]
+
 [project]
 name = "plasmapy-calculator"
 version = "0.1.0"
 description = "A prototype plasma formulary calculator"
 readme = "README.md"
 authors = [
-    { name = "Rajagopalan Gangadharan"},
-    { name = "Erik Everson"},
-    { name = "Nick Murphy", email = "namurphy@cfa.harvard.edu" },
+  { name = "Rajagopalan Gangadharan" },
+  { name = "Erik Everson" },
+  { name = "Nick Murphy", email = "namurphy@cfa.harvard.edu" },
 ]
 requires-python = "==3.11.11"
-dependencies = []
+classifiers = [ "Programming Language :: Python :: 3 :: Only", "Programming Language :: Python :: 3.11" ]
+dependencies = [  ]
 
-[project.scripts]
-plasmapy-calculator = "plasmapy_calculator:main"
-
-[build-system]
-requires = ["uv_build>=0.8.3,<0.9.0"]
-build-backend = "uv_build"
+scripts.plasmapy-calculator = "plasmapy_calculator:main"
 
 [dependency-groups]
 dev = [
-    "nox>=2025.5.1",
+  "nox>=2025.5.1",
 ]
