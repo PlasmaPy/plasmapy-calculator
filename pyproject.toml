@@ -116,3 +116,7 @@ dev = [
   "nox",
   "uv",
 ]
+
+[tool.uv.build-backend]
+source-include = [ "src/plasmapy_calculator/favicon.ico" ]
+data = { data = "src/plasmapy_calculator/favicon.ico" }
