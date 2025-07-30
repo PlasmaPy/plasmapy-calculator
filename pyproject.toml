@@ -1,12 +1,13 @@
 [project]
 name = "plasmapy-calculator"
 version = "0.1.0"
-description = "Add your description here"
+description = "A prototype plasma formulary calculator"
 readme = "README.md"
 authors = [
+    { name = ""
     { name = "Nick Murphy", email = "namurphy@cfa.harvard.edu" }
 ]
-requires-python = ">=3.13"
+requires-python = "==3.11"
 dependencies = []
 
 [project.scripts]
