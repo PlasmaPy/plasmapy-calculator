@@ -114,7 +114,12 @@ def validate_requirements(session: nox.Session) -> None:
     session.run("uv", "lock", "--check", "--offline", "--no-progress")
 
 
-@nox.session(python="3.11")
+@nox.session(python="3.10")
 def smoke_test(session: nox.Session) -> None:
     session.install(".")
     session.run("plasmapy-calculator")
+
+
+@nox.session
+def build(session: nox.Session) -> None:
+    session.run("uv", "build", "--no-progress")
