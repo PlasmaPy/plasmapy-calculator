@@ -22,4 +22,5 @@ scripts.plasmapy-calculator = "plasmapy_calculator:main"
 [dependency-groups]
 dev = [
   "nox>=2025.5.1",
+  "uv>=0.8.4",
 ]
