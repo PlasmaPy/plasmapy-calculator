@@ -29,6 +29,11 @@ jobs:
       matrix:
         include:
 
+        - name: Run plasmapy-calculator
+          os: ubuntu-latest
+          python: '3.11'
+          nox_session: smoke_test
+
         - name: Check consistency of pinned & project requirements
           os: ubuntu-latest
           python: '3.13'

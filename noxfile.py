@@ -110,3 +110,9 @@ def validate_requirements(session: nox.Session) -> None:
     # so that only the information from the cache is used.
 
     session.run("uv", "lock", "--check", "--offline", "--no-progress")
+
+
+@nox.session
+def smoke_test(session: nox.Session) -> None:
+    session.install(".")
+    session.run("plasmapy-calculator")
