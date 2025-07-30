@@ -6,7 +6,6 @@ __all__ = ["main"]
 
 import argparse
 import pathlib
-import shlex
 import subprocess
 
 _description = """
