@@ -2,8 +2,62 @@
 
 import nox
 import os
+import shutil
+import pathlib
 
 running_on_ci = os.getenv("CI")
+
+
+def _create_requirements_pr_message(uv_output: str, session: nox.Session) -> None:
+    """
+    Create the pull request message during requirements updates.
+
+    This function copies a GitHub flavored Markdown template to a new
+    file and appends a table containing the updated requirements, with
+    links to the corresponding PyPI pages. This file is then used as the
+    body of the pull request message used in the workflow for updating
+    requirements.
+
+    Parameters
+    ----------
+    uv_output : str
+        The multi-line output of ``session.run(..., silent=True)``.
+    """
+
+    pr_template = pathlib.Path("./.github/content/update-requirements-pr-template.md")
+    pr_message = pathlib.Path("./.github/content/update-requirements-pr-body.md")
+
+    shutil.copy(pr_template, pr_message)
+
+    lines = [
+        "",
+        "| package | old version | new version |",
+        "| :-----: | :---------: | :---------: |",
+    ]
+
+    for package_update in uv_output.splitlines():
+        if not package_update.startswith("Updated"):
+            session.debug(f"Line not added to table: {package_update}")
+            continue
+
+        try:
+            # An example line is "Updated nbsphinx v0.9.6 -> v0.9.7"
+            _, package_, old_version_, _, new_version_ = package_update.split()
+        except ValueError:
+            session.debug(f"Line not added to table: {package_update}:")
+            continue
+
+        old_version = f"{old_version_.removeprefix('v')}"
+        new_version = f"{new_version_.removeprefix('v')}"
+
+        pypi_link = f"https://pypi.org/project/{package_}/{new_version}"
+        package = f"[`{package_}`]({pypi_link})"
+
+        lines.append(f"| {package} | `{old_version}` | `{new_version}` |")
+
+    with pr_message.open(mode="a") as file:
+        file.write("\n".join(lines))
+
 
 @nox.session
 def requirements(session: nox.Session) -> None:
