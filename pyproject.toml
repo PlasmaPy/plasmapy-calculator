@@ -18,7 +18,12 @@ classifiers = [
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.11",
 ]
-dependencies = [  ]
+dependencies = [
+  "ipykernel>=6.30.0",
+  "ipywidgets>=8.1.7",
+  "plasmapy>=2024.10.0",
+  "voila>=0.5.9",
+]
 
 scripts.plasmapy-calculator = "plasmapy_calculator:main"
 
