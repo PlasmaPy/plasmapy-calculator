@@ -1,2 +1,2 @@
-def hello() -> str:
-    return "Hello from plasmapy-calculator!"
+def main() -> None:
+    print("Hello from plasmapy-calculator!")
