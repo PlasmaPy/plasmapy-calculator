@@ -13,8 +13,11 @@ authors = [
   { name = "Erik Everson" },
   { name = "Nick Murphy", email = "namurphy@cfa.harvard.edu" },
 ]
-requires-python = "==3.11.11"
-classifiers = [ "Programming Language :: Python :: 3 :: Only", "Programming Language :: Python :: 3.11" ]
+requires-python = ">=3.11.11,<3.12"
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+]
 dependencies = [  ]
 
 scripts.plasmapy-calculator = "plasmapy_calculator:main"

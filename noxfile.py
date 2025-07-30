@@ -7,6 +7,8 @@ import pathlib
 
 running_on_ci = os.getenv("CI")
 
+nox.options.default_venv_backend = "uv"
+
 
 def _create_requirements_pr_message(uv_output: str, session: nox.Session) -> None:
     """
@@ -112,7 +114,7 @@ def validate_requirements(session: nox.Session) -> None:
     session.run("uv", "lock", "--check", "--offline", "--no-progress")
 
 
-@nox.session
+@nox.session(python="3.11")
 def smoke_test(session: nox.Session) -> None:
     session.install(".")
     session.run("plasmapy-calculator")
