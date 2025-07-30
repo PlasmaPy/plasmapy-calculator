@@ -110,4 +110,5 @@ scripts.plasmapy-calculator = "plasmapy_calculator:main"
 [dependency-groups]
 dev = [
   "nox",
+  "uv",
 ]
