@@ -18,6 +18,10 @@ classifiers = [
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.10",
 ]
+# There were breaking changes in a voila | voila's dependencies since
+# the plasma calculator notebook was originally contributed to PlasmaPy,
+# which makes it prudent to tentatively pin dependencies to versions
+# that are known to work.
 dependencies = [
   "anyio==3.6.1",
   "argon2-cffi==21.3.0",
