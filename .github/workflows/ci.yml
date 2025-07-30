@@ -1,0 +1,57 @@
+# This file invokes Nox sessions to run tests, build documentation, and
+# perform other continuous integration (CI) checks. The Nox sessions are
+# defined in noxfile.py.
+
+name: CI
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+  workflow_dispatch:
+
+permissions: {}  # disables all GitHub permissions for the workflow
+
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+
+  tests:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        include:
+
+        - name: Run plasmapy-calculator
+          os: ubuntu-latest
+          python: '3.11'
+          nox_session: smoke_test
+
+        - name: Check consistency of pinned & project requirements
+          os: ubuntu-latest
+          python: '3.13'
+          nox_session: validate_requirements
+
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v6
+      with:
+        python-version: ${{ matrix.python }}
+        enable-cache: true
+        cache-suffix: ${{ matrix.nox_session }}-${{ matrix.python }}-${{ runner.os }}
+
+    - name: Run the check
+      run: uvx nox -s '${{ matrix.nox_session }}'
